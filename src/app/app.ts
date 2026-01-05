@@ -1,5 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { Gasul } from "./gasul/gasul";
 
 @Component({
   selector: 'app-root',

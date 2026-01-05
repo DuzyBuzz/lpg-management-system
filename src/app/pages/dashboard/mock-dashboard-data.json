@@ -1,0 +1,1179 @@
+{
+  "meta": {
+    "currency": "PHP",
+    "unit": "tons",
+    "branches": ["Molo", "Oton", "Sooc", "Guimbal", "Antique"]
+  },
+
+  "monthlySummary": [
+    {
+      "month": "2025-12",
+      "monthName": "December 2025",
+      "totalCashSales": 13842000,
+      "totalVolumeTons": 3980
+    },
+    {
+      "month": "2026-01",
+      "monthName": "January 2026",
+      "totalCashSales": 14953800.21,
+      "totalVolumeTons": 4120
+    }
+  ],
+
+  "branchSales": [
+    {
+      "date": "2025-12-25",
+      "branch": "Molo",
+      "cashSales": 76000.21,
+      "volumeTons": 2.2
+    },
+    {
+      "date": "2025-12-04",
+      "branch": "Oton",
+      "cashSales": 64000,
+      "volumeTons": 1.8
+    },
+    {
+      "date": "2025-12-01",
+      "branch": "Sooc",
+      "cashSales": 52000,
+      "volumeTons": 1.6
+    },
+    {
+      "date": "2025-12-01",
+      "branch": "Guimbal",
+      "cashSales": 80000,
+      "volumeTons": 2.3
+    },
+    {
+      "date": "2025-12-01",
+      "branch": "Antique",
+      "cashSales": 71000,
+      "volumeTons": 2.0
+    },
+
+    {
+      "date": "2025-12-02",
+      "branch": "Molo",
+      "cashSales": 78000,
+      "volumeTons": 2.3
+    },
+    {
+      "date": "2025-12-02",
+      "branch": "Oton",
+      "cashSales": 66000,
+      "volumeTons": 1.9
+    },
+    {
+      "date": "2025-12-02",
+      "branch": "Sooc",
+      "cashSales": 54000,
+      "volumeTons": 1.7
+    },
+    {
+      "date": "2025-12-02",
+      "branch": "Guimbal",
+      "cashSales": 82000,
+      "volumeTons": 2.4
+    },
+    {
+      "date": "2025-12-02",
+      "branch": "Antique",
+      "cashSales": 73000,
+      "volumeTons": 2.1
+    },
+
+    {
+      "date": "2026-01-01",
+      "branch": "Molo",
+      "cashSales": 81000,
+      "volumeTons": 2.4
+    },
+    {
+      "date": "2026-01-01",
+      "branch": "Oton",
+      "cashSales": 69000,
+      "volumeTons": 2.0
+    },
+    {
+      "date": "2026-01-01",
+      "branch": "Sooc",
+      "cashSales": 55000,
+      "volumeTons": 1.7
+    },
+    {
+      "date": "2026-01-01",
+      "branch": "Guimbal",
+      "cashSales": 84000,
+      "volumeTons": 2.5
+    },
+    {
+      "date": "2026-01-01",
+      "branch": "Antique",
+      "cashSales": 76000,
+      "volumeTons": 2.2
+    },
+
+    {
+      "date": "2026-01-02",
+      "branch": "Molo",
+      "cashSales": 83000,
+      "volumeTons": 2.5
+    },
+    {
+      "date": "2026-01-02",
+      "branch": "Oton",
+      "cashSales": 71000,
+      "volumeTons": 2.1
+    },
+    {
+      "date": "2026-01-02",
+      "branch": "Sooc",
+      "cashSales": 57000,
+      "volumeTons": 1.8
+    },
+    {
+      "date": "2026-01-02",
+      "branch": "Guimbal",
+      "cashSales": 86000,
+      "volumeTons": 2.6
+    },
+    {
+      "date": "2026-01-02",
+      "branch": "Antique",
+      "cashSales": 78000,
+      "volumeTons": 2.3
+    },
+{
+  "date": "2025-12-05",
+  "branch": "Molo",
+  "cashSales": 79500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-12-08",
+  "branch": "Molo",
+  "cashSales": 81200,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-12-12",
+  "branch": "Molo",
+  "cashSales": 83000,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-12-18",
+  "branch": "Molo",
+  "cashSales": 84500,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-12-22",
+  "branch": "Molo",
+  "cashSales": 86000,
+  "volumeTons": 2.7
+},
+{
+  "date": "2026-01-04",
+  "branch": "Molo",
+  "cashSales": 88000,
+  "volumeTons": 2.8
+},
+{
+  "date": "2026-01-07",
+  "branch": "Molo",
+  "cashSales": 89500,
+  "volumeTons": 2.9
+},
+{
+  "date": "2026-01-11",
+  "branch": "Molo",
+  "cashSales": 91000,
+  "volumeTons": 3.0
+},
+{
+  "date": "2026-01-15",
+  "branch": "Molo",
+  "cashSales": 92500,
+  "volumeTons": 3.1
+},
+{
+  "date": "2026-01-20",
+  "branch": "Molo",
+  "cashSales": 94000,
+  "volumeTons": 3.2
+},
+
+{
+  "date": "2025-12-06",
+  "branch": "Oton",
+  "cashSales": 66500,
+  "volumeTons": 1.9
+},
+{
+  "date": "2025-12-09",
+  "branch": "Oton",
+  "cashSales": 68000,
+  "volumeTons": 2.0
+},
+{
+  "date": "2025-12-13",
+  "branch": "Oton",
+  "cashSales": 69500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2025-12-17",
+  "branch": "Oton",
+  "cashSales": 71000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2025-12-23",
+  "branch": "Oton",
+  "cashSales": 72500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2026-01-05",
+  "branch": "Oton",
+  "cashSales": 74000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2026-01-09",
+  "branch": "Oton",
+  "cashSales": 75500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2026-01-13",
+  "branch": "Oton",
+  "cashSales": 77000,
+  "volumeTons": 2.6
+},
+{
+  "date": "2026-01-18",
+  "branch": "Oton",
+  "cashSales": 78500,
+  "volumeTons": 2.7
+},
+{
+  "date": "2026-01-22",
+  "branch": "Oton",
+  "cashSales": 80000,
+  "volumeTons": 2.8
+},
+
+{
+  "date": "2025-12-07",
+  "branch": "Sooc",
+  "cashSales": 55500,
+  "volumeTons": 1.7
+},
+{
+  "date": "2025-12-10",
+  "branch": "Sooc",
+  "cashSales": 57000,
+  "volumeTons": 1.8
+},
+{
+  "date": "2025-12-14",
+  "branch": "Sooc",
+  "cashSales": 58500,
+  "volumeTons": 1.9
+},
+{
+  "date": "2025-12-19",
+  "branch": "Sooc",
+  "cashSales": 60000,
+  "volumeTons": 2.0
+},
+{
+  "date": "2025-12-24",
+  "branch": "Sooc",
+  "cashSales": 61500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2026-01-06",
+  "branch": "Sooc",
+  "cashSales": 63000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2026-01-10",
+  "branch": "Sooc",
+  "cashSales": 64500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2026-01-14",
+  "branch": "Sooc",
+  "cashSales": 66000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2026-01-19",
+  "branch": "Sooc",
+  "cashSales": 67500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2026-01-23",
+  "branch": "Sooc",
+  "cashSales": 69000,
+  "volumeTons": 2.6
+},
+
+{
+  "date": "2025-12-08",
+  "branch": "Guimbal",
+  "cashSales": 82500,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-12-11",
+  "branch": "Guimbal",
+  "cashSales": 84000,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-12-15",
+  "branch": "Guimbal",
+  "cashSales": 85500,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-12-20",
+  "branch": "Guimbal",
+  "cashSales": 87000,
+  "volumeTons": 2.7
+},
+{
+  "date": "2025-12-26",
+  "branch": "Guimbal",
+  "cashSales": 88500,
+  "volumeTons": 2.8
+},
+{
+  "date": "2026-01-08",
+  "branch": "Guimbal",
+  "cashSales": 90000,
+  "volumeTons": 2.9
+},
+{
+  "date": "2026-01-12",
+  "branch": "Guimbal",
+  "cashSales": 91500,
+  "volumeTons": 3.0
+},
+{
+  "date": "2026-01-16",
+  "branch": "Guimbal",
+  "cashSales": 93000,
+  "volumeTons": 3.1
+},
+{
+  "date": "2026-01-21",
+  "branch": "Guimbal",
+  "cashSales": 94500,
+  "volumeTons": 3.2
+},
+{
+  "date": "2026-01-25",
+  "branch": "Guimbal",
+  "cashSales": 96000,
+  "volumeTons": 3.3
+},
+
+{
+  "date": "2025-12-09",
+  "branch": "Antique",
+  "cashSales": 73500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2025-12-13",
+  "branch": "Antique",
+  "cashSales": 75000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2025-12-16",
+  "branch": "Antique",
+  "cashSales": 76500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-12-21",
+  "branch": "Antique",
+  "cashSales": 78000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-12-27",
+  "branch": "Antique",
+  "cashSales": 79500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2026-01-09",
+  "branch": "Antique",
+  "cashSales": 81000,
+  "volumeTons": 2.6
+},
+{
+  "date": "2026-01-13",
+  "branch": "Antique",
+  "cashSales": 82500,
+  "volumeTons": 2.7
+},
+{
+  "date": "2026-01-17",
+  "branch": "Antique",
+  "cashSales": 84000,
+  "volumeTons": 2.8
+},
+{
+  "date": "2026-01-22",
+  "branch": "Antique",
+  "cashSales": 85500,
+  "volumeTons": 2.9
+},
+{
+  "date": "2026-01-26",
+  "branch": "Antique",
+  "cashSales": 87000,
+  "volumeTons": 3.0
+},
+{
+  "date": "2025-12-03",
+  "branch": "Molo",
+  "cashSales": 80200,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-12-11",
+  "branch": "Molo",
+  "cashSales": 82800,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-12-19",
+  "branch": "Molo",
+  "cashSales": 85100,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-12-28",
+  "branch": "Molo",
+  "cashSales": 87300,
+  "volumeTons": 2.7
+},
+{
+  "date": "2026-01-03",
+  "branch": "Molo",
+  "cashSales": 89200,
+  "volumeTons": 2.8
+},
+{
+  "date": "2026-01-06",
+  "branch": "Molo",
+  "cashSales": 91400,
+  "volumeTons": 2.9
+},
+{
+  "date": "2026-01-12",
+  "branch": "Molo",
+  "cashSales": 93600,
+  "volumeTons": 3.0
+},
+{
+  "date": "2026-01-18",
+  "branch": "Molo",
+  "cashSales": 95800,
+  "volumeTons": 3.1
+},
+{
+  "date": "2026-01-24",
+  "branch": "Molo",
+  "cashSales": 97900,
+  "volumeTons": 3.2
+},
+{
+  "date": "2026-01-29",
+  "branch": "Molo",
+  "cashSales": 100200,
+  "volumeTons": 3.3
+},
+
+{
+  "date": "2025-12-05",
+  "branch": "Oton",
+  "cashSales": 67200,
+  "volumeTons": 1.9
+},
+{
+  "date": "2025-12-14",
+  "branch": "Oton",
+  "cashSales": 69400,
+  "volumeTons": 2.0
+},
+{
+  "date": "2025-12-18",
+  "branch": "Oton",
+  "cashSales": 71600,
+  "volumeTons": 2.1
+},
+{
+  "date": "2025-12-27",
+  "branch": "Oton",
+  "cashSales": 73800,
+  "volumeTons": 2.2
+},
+{
+  "date": "2026-01-02",
+  "branch": "Oton",
+  "cashSales": 75900,
+  "volumeTons": 2.3
+},
+{
+  "date": "2026-01-06",
+  "branch": "Oton",
+  "cashSales": 78100,
+  "volumeTons": 2.4
+},
+{
+  "date": "2026-01-11",
+  "branch": "Oton",
+  "cashSales": 80300,
+  "volumeTons": 2.5
+},
+{
+  "date": "2026-01-17",
+  "branch": "Oton",
+  "cashSales": 82400,
+  "volumeTons": 2.6
+},
+{
+  "date": "2026-01-23",
+  "branch": "Oton",
+  "cashSales": 84600,
+  "volumeTons": 2.7
+},
+{
+  "date": "2026-01-28",
+  "branch": "Oton",
+  "cashSales": 86700,
+  "volumeTons": 2.8
+},
+
+{
+  "date": "2025-12-04",
+  "branch": "Sooc",
+  "cashSales": 56200,
+  "volumeTons": 1.7
+},
+{
+  "date": "2025-12-12",
+  "branch": "Sooc",
+  "cashSales": 58400,
+  "volumeTons": 1.8
+},
+{
+  "date": "2025-12-20",
+  "branch": "Sooc",
+  "cashSales": 60600,
+  "volumeTons": 1.9
+},
+{
+  "date": "2025-12-29",
+  "branch": "Sooc",
+  "cashSales": 62800,
+  "volumeTons": 2.0
+},
+{
+  "date": "2026-01-04",
+  "branch": "Sooc",
+  "cashSales": 64900,
+  "volumeTons": 2.1
+},
+{
+  "date": "2026-01-08",
+  "branch": "Sooc",
+  "cashSales": 67100,
+  "volumeTons": 2.2
+},
+{
+  "date": "2026-01-14",
+  "branch": "Sooc",
+  "cashSales": 69300,
+  "volumeTons": 2.3
+},
+{
+  "date": "2026-01-19",
+  "branch": "Sooc",
+  "cashSales": 71400,
+  "volumeTons": 2.4
+},
+{
+  "date": "2026-01-25",
+  "branch": "Sooc",
+  "cashSales": 73600,
+  "volumeTons": 2.5
+},
+{
+  "date": "2026-01-30",
+  "branch": "Sooc",
+  "cashSales": 75700,
+  "volumeTons": 2.6
+},
+
+{
+  "date": "2025-12-06",
+  "branch": "Guimbal",
+  "cashSales": 83800,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-12-16",
+  "branch": "Guimbal",
+  "cashSales": 86100,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-12-22",
+  "branch": "Guimbal",
+  "cashSales": 88300,
+  "volumeTons": 2.7
+},
+{
+  "date": "2025-12-30",
+  "branch": "Guimbal",
+  "cashSales": 90500,
+  "volumeTons": 2.8
+},
+{
+  "date": "2026-01-05",
+  "branch": "Guimbal",
+  "cashSales": 92600,
+  "volumeTons": 2.9
+},
+{
+  "date": "2026-01-09",
+  "branch": "Guimbal",
+  "cashSales": 94800,
+  "volumeTons": 3.0
+},
+{
+  "date": "2026-01-15",
+  "branch": "Guimbal",
+  "cashSales": 97000,
+  "volumeTons": 3.1
+},
+{
+  "date": "2026-01-20",
+  "branch": "Guimbal",
+  "cashSales": 99100,
+  "volumeTons": 3.2
+},
+{
+  "date": "2026-01-26",
+  "branch": "Guimbal",
+  "cashSales": 101300,
+  "volumeTons": 3.3
+},
+{
+  "date": "2026-01-31",
+  "branch": "Guimbal",
+  "cashSales": 103500,
+  "volumeTons": 3.4
+},
+
+{
+  "date": "2025-12-10",
+  "branch": "Antique",
+  "cashSales": 74800,
+  "volumeTons": 2.2
+},
+{
+  "date": "2025-12-17",
+  "branch": "Antique",
+  "cashSales": 77100,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-12-23",
+  "branch": "Antique",
+  "cashSales": 79300,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-12-31",
+  "branch": "Antique",
+  "cashSales": 81500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2026-01-06",
+  "branch": "Antique",
+  "cashSales": 83600,
+  "volumeTons": 2.6
+},
+{
+  "date": "2026-01-11",
+  "branch": "Antique",
+  "cashSales": 85800,
+  "volumeTons": 2.7
+},
+{
+  "date": "2026-01-16",
+  "branch": "Antique",
+  "cashSales": 88000,
+  "volumeTons": 2.8
+},
+{
+  "date": "2026-01-21",
+  "branch": "Antique",
+  "cashSales": 90100,
+  "volumeTons": 2.9
+},
+{
+  "date": "2026-01-27",
+  "branch": "Antique",
+  "cashSales": 92300,
+  "volumeTons": 3.0
+},
+{
+  "date": "2026-01-30",
+  "branch": "Antique",
+  "cashSales": 94500,
+  "volumeTons": 3.1
+},
+{
+  "date": "2025-01-15",
+  "branch": "Molo",
+  "cashSales": 70500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2025-02-10",
+  "branch": "Molo",
+  "cashSales": 72000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2027-01-18",
+  "branch": "Molo",
+  "cashSales": 73500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-04-22",
+  "branch": "Molo",
+  "cashSales": 75000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-05-14",
+  "branch": "Molo",
+  "cashSales": 76500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-06-19",
+  "branch": "Molo",
+  "cashSales": 78000,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-07-11",
+  "branch": "Molo",
+  "cashSales": 79500,
+  "volumeTons": 2.7
+},
+{
+  "date": "2025-08-23",
+  "branch": "Molo",
+  "cashSales": 81000,
+  "volumeTons": 2.8
+},
+{
+  "date": "2025-09-16",
+  "branch": "Molo",
+  "cashSales": 82500,
+  "volumeTons": 2.9
+},
+{
+  "date": "2025-11-05",
+  "branch": "Molo",
+  "cashSales": 84000,
+  "volumeTons": 3.0
+},
+
+{
+  "date": "2025-01-12",
+  "branch": "Oton",
+  "cashSales": 58500,
+  "volumeTons": 1.7
+},
+{
+  "date": "2025-02-18",
+  "branch": "Oton",
+  "cashSales": 60000,
+  "volumeTons": 1.8
+},
+{
+  "date": "2027-01-09",
+  "branch": "Oton",
+  "cashSales": 61500,
+  "volumeTons": 1.9
+},
+{
+  "date": "2025-04-27",
+  "branch": "Oton",
+  "cashSales": 63000,
+  "volumeTons": 2.0
+},
+{
+  "date": "2025-05-21",
+  "branch": "Oton",
+  "cashSales": 64500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2025-06-13",
+  "branch": "Oton",
+  "cashSales": 66000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2025-07-25",
+  "branch": "Oton",
+  "cashSales": 67500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-08-17",
+  "branch": "Oton",
+  "cashSales": 69000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-09-28",
+  "branch": "Oton",
+  "cashSales": 70500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-11-08",
+  "branch": "Oton",
+  "cashSales": 72000,
+  "volumeTons": 2.6
+},
+
+{
+  "date": "2025-01-20",
+  "branch": "Sooc",
+  "cashSales": 47000,
+  "volumeTons": 1.4
+},
+{
+  "date": "2025-02-14",
+  "branch": "Sooc",
+  "cashSales": 48500,
+  "volumeTons": 1.5
+},
+{
+  "date": "2027-01-22",
+  "branch": "Sooc",
+  "cashSales": 50000,
+  "volumeTons": 1.6
+},
+{
+  "date": "2025-04-16",
+  "branch": "Sooc",
+  "cashSales": 51500,
+  "volumeTons": 1.7
+},
+{
+  "date": "2025-05-29",
+  "branch": "Sooc",
+  "cashSales": 53000,
+  "volumeTons": 1.8
+},
+{
+  "date": "2025-06-24",
+  "branch": "Sooc",
+  "cashSales": 54500,
+  "volumeTons": 1.9
+},
+{
+  "date": "2025-07-15",
+  "branch": "Sooc",
+  "cashSales": 56000,
+  "volumeTons": 2.0
+},
+{
+  "date": "2025-08-27",
+  "branch": "Sooc",
+  "cashSales": 57500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2025-09-19",
+  "branch": "Sooc",
+  "cashSales": 59000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2025-11-02",
+  "branch": "Sooc",
+  "cashSales": 60500,
+  "volumeTons": 2.3
+},
+
+{
+  "date": "2025-01-08",
+  "branch": "Guimbal",
+  "cashSales": 76000,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-02-26",
+  "branch": "Guimbal",
+  "cashSales": 78000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2027-01-14",
+  "branch": "Guimbal",
+  "cashSales": 80000,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-04-30",
+  "branch": "Guimbal",
+  "cashSales": 82000,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-05-18",
+  "branch": "Guimbal",
+  "cashSales": 84000,
+  "volumeTons": 2.7
+},
+{
+  "date": "2025-06-21",
+  "branch": "Guimbal",
+  "cashSales": 86000,
+  "volumeTons": 2.8
+},
+{
+  "date": "2025-07-10",
+  "branch": "Guimbal",
+  "cashSales": 88000,
+  "volumeTons": 2.9
+},
+{
+  "date": "2025-08-24",
+  "branch": "Guimbal",
+  "cashSales": 90000,
+  "volumeTons": 3.0
+},
+{
+  "date": "2025-09-13",
+  "branch": "Guimbal",
+  "cashSales": 92000,
+  "volumeTons": 3.1
+},
+{
+  "date": "2025-11-19",
+  "branch": "Guimbal",
+  "cashSales": 94000,
+  "volumeTons": 3.2
+},
+
+{
+  "date": "2025-01-19",
+  "branch": "Antique",
+  "cashSales": 67000,
+  "volumeTons": 2.0
+},
+{
+  "date": "2025-02-11",
+  "branch": "Antique",
+  "cashSales": 68500,
+  "volumeTons": 2.1
+},
+{
+  "date": "2027-01-27",
+  "branch": "Antique",
+  "cashSales": 70000,
+  "volumeTons": 2.2
+},
+{
+  "date": "2025-04-13",
+  "branch": "Antique",
+  "cashSales": 71500,
+  "volumeTons": 2.3
+},
+{
+  "date": "2025-05-26",
+  "branch": "Antique",
+  "cashSales": 73000,
+  "volumeTons": 2.4
+},
+{
+  "date": "2025-06-17",
+  "branch": "Antique",
+  "cashSales": 74500,
+  "volumeTons": 2.5
+},
+{
+  "date": "2025-07-29",
+  "branch": "Antique",
+  "cashSales": 76000,
+  "volumeTons": 2.6
+},
+{
+  "date": "2025-08-12",
+  "branch": "Antique",
+  "cashSales": 77500,
+  "volumeTons": 2.7
+},
+{
+  "date": "2025-09-24",
+  "branch": "Antique",
+  "cashSales": 79000,
+  "volumeTons": 2.8
+},
+{
+  "date": "2025-11-14",
+  "branch": "Antique",
+  "cashSales": 80500,
+  "volumeTons": 2.9
+}
+
+
+
+  ],
+
+"driverSales": [
+  {
+    "date": "2025-12-15",
+    "driverId": "DRV-001",
+    "name": "John Martinez",
+    "cashSales": 285000,
+    "volumeTons": 8.0
+  },
+  {
+    "date": "2025-12-16",
+    "driverId": "DRV-002",
+    "name": "Carlos Reyes",
+    "cashSales": 302000,
+    "volumeTons": 9.1
+  },
+  {
+    "date": "2025-12-17",
+    "driverId": "DRV-003",
+    "name": "Miguel Santos",
+    "cashSales": 251000,
+    "volumeTons": 7.3
+  },
+  {
+    "date": "2025-12-18",
+    "driverId": "DRV-004",
+    "name": "Arnel Cruz",
+    "cashSales": 276000,
+    "volumeTons": 8.4
+  },
+  {
+    "date": "2025-12-19",
+    "driverId": "DRV-005",
+    "name": "Ramon Delgado",
+    "cashSales": 264000,
+    "volumeTons": 7.9
+  },
+  {
+    "date": "2025-12-21",
+    "driverId": "DRV-001",
+    "name": "John Martinez",
+    "cashSales": 298000,
+    "volumeTons": 8.7
+  },
+  {
+    "date": "2025-12-23",
+    "driverId": "DRV-002",
+    "name": "Carlos Reyes",
+    "cashSales": 315000,
+    "volumeTons": 9.4
+  },
+  {
+    "date": "2025-12-26",
+    "driverId": "DRV-003",
+    "name": "Miguel Santos",
+    "cashSales": 268000,
+    "volumeTons": 7.8
+  },
+  {
+    "date": "2026-01-03",
+    "driverId": "DRV-004",
+    "name": "Arnel Cruz",
+    "cashSales": 289000,
+    "volumeTons": 8.8
+  },
+  {
+    "date": "2026-01-05",
+    "driverId": "DRV-005",
+    "name": "Ramon Delgado",
+    "cashSales": 271000,
+    "volumeTons": 8.1
+  },
+  {
+    "date": "2026-01-07",
+    "driverId": "DRV-001",
+    "name": "John Martinez",
+    "cashSales": 322000,
+    "volumeTons": 9.6
+  },
+  {
+    "date": "2026-01-05",
+    "driverId": "DRV-002",
+    "name": "Carlos Reyes",
+    "cashSales": 318000,
+    "volumeTons": 9.5
+  },
+  {
+    "date": "2026-01-05",
+    "driverId": "DRV-003",
+    "name": "Miguel Santos",
+    "cashSales": 261000,
+    "volumeTons": 20
+  },
+    {
+    "date": "2026-01-08",
+    "driverId": "DRV-003",
+    "name": "Miguel Santos",
+    "cashSales": 261000,
+    "volumeTons": 7.6
+  },
+  {
+    "date": "2026-01-13",
+    "driverId": "DRV-004",
+    "name": "Arnel Cruz",
+    "cashSales": 302000,
+    "volumeTons": 9.1
+  },
+  {
+    "date": "2026-01-14",
+    "driverId": "DRV-005",
+    "name": "Ramon Delgado",
+    "cashSales": 287000,
+    "volumeTons": 8.5
+  }
+]
+
+}

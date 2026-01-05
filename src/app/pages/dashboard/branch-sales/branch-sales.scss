@@ -1,0 +1,10 @@
+/* simple spacing tweaks for the branch sales card */
+:host {
+  display: block;
+}
+
+/* keep canvas responsive */
+canvas {
+  width: 100% !important;
+  height: 100% !important;
+}

@@ -1,0 +1,127 @@
+<div class="bg-white rounded-lg p-6 shadow-sm">
+
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h2 class="text-xl font-bold text-slate-900">
+        Driver Volume Performance — {{ currentYear }}
+      </h2>
+      <p class="text-sm text-slate-500">
+        Yearly LPG volume delivered per driver (MT)
+      </p>
+    </div>
+
+    <!-- Navigation -->
+    <div class="flex items-center gap-2">
+      <button
+        (click)="prevYear()"
+        class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200">
+        « Year
+      </button>
+
+      <div class="px-3 py-1 rounded bg-slate-50 border text-sm text-slate-700">
+        {{ currentYear }}
+      </div>
+
+      <button
+        (click)="nextYear()"
+        class="px-2 py-1 rounded bg-slate-100 hover:bg-slate-200">
+        Year »
+      </button>
+    </div>
+  </div>
+
+<!-- Charts Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+
+  <!-- Stacked Bar Chart -->
+  <div class="lg:col-span-2 h-96">
+    <canvas
+      baseChart
+      [type]="chartType"
+      [data]="chartData"
+      [options]="chartOptions">
+    </canvas>
+  </div>
+
+  <!-- Pie Chart -->
+  <div class="h-96 bg-white rounded-lg border p-4 flex flex-col">
+    <h3 class="text-sm font-semibold text-slate-700 mb-2">
+      Yearly Driver Volume Share
+    </h3>
+
+    <canvas
+      baseChart
+      [type]="'pie'"
+      [data]="pieChartData"
+      [options]="pieChartOptions">
+    </canvas>
+  </div>
+
+</div>
+
+
+  <!-- TABLE -->
+  <div class="overflow-x-auto bg-white rounded-lg shadow p-4">
+    <div class="flex justify-between items-center mb-3">
+      <h3 class="text-lg font-semibold text-slate-900">
+        Driver Yearly Volume Summary
+      </h3>
+
+      <div class="flex gap-2">
+        <button
+          (click)="exportToExcel()"
+          class="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 transition">
+          Export to Excel
+        </button>
+
+        <button
+          (click)="printTable()"
+          class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+          Print
+        </button>
+      </div>
+    </div>
+
+    <table
+      id="driver-sales-table"
+      class="min-w-full border divide-y divide-gray-200">
+
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-3 py-2 text-left text-sm font-medium text-gray-700">
+            Driver
+          </th>
+          <th class="px-3 py-2 text-right text-sm font-medium text-gray-700">
+            Total Volume (MT)
+          </th>
+        </tr>
+      </thead>
+
+      <tbody class="divide-y divide-gray-200">
+        <tr *ngFor="let row of tableRows">
+          <td class="px-3 py-2 font-semibold text-slate-900">
+            {{ row.name }} ({{ row.driverId }})
+          </td>
+
+          <td class="px-3 py-2 text-right font-bold text-black">
+            {{ formatVolume(row.totalVolume) }}
+          </td>
+        </tr>
+      </tbody>
+
+      <!-- FOOTER TOTAL -->
+      <tfoot class="bg-slate-100 border-t-2 border-slate-300">
+        <tr>
+          <td class="px-3 py-3 text-right font-semibold">
+            TOTAL VOLUME
+          </td>
+          <td class="px-3 py-3 text-right text-lg font-bold text-black">
+            {{ formatVolume(yearlyTotalVolume) }}
+          </td>
+        </tr>
+      </tfoot>
+
+    </table>
+  </div>
+</div>

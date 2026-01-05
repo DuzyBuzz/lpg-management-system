@@ -1,0 +1,115 @@
+<div class="space-y-6 p-6">
+
+  <!-- Header -->
+  <div class="bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-6 text-white shadow-lg">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
+
+      <!-- Left -->
+      <div class="flex flex-col gap-4">
+        <h1 class="text-3xl font-bold tracking-wide">
+          LPG Distribution Dashboard
+        </h1>
+
+        <!-- Report Switch Buttons -->
+        <div class="flex flex-wrap gap-3">
+
+          <button
+            routerLink="monthly-comparison"
+            routerLinkActive="bg-blue-600 text-white ring-2 ring-blue-400/50 shadow-md"
+            class="px-4 py-2 rounded-lg
+                   bg-slate-700/60 text-slate-200
+                   font-semibold
+                   hover:bg-slate-600/70 hover:text-white
+                   transition-all duration-200">
+            Monthly Comparison
+          </button>
+          <button
+            routerLink="branch-sales"
+            routerLinkActive="bg-blue-600 text-white ring-2 ring-blue-400/50 shadow-md"
+            class="px-4 py-2 rounded-lg
+                   bg-slate-700/60 text-slate-200
+                   font-semibold
+                   hover:bg-slate-600/70 hover:text-white
+                   transition-all duration-200">
+            Branch Sales
+          </button>
+
+          <button
+            routerLink="volume-sales"
+            routerLinkActive="bg-blue-600 text-white ring-2 ring-blue-400/50 shadow-md"
+            class="px-4 py-2 rounded-lg
+                   bg-slate-700/60 text-slate-200
+                   font-semibold
+                   hover:bg-slate-600/70 hover:text-white
+                   transition-all duration-200">
+            Volume Sales
+          </button>
+
+          <button
+            routerLink="driver-sales"
+            routerLinkActive="bg-blue-600 text-white ring-2 ring-blue-400/50 shadow-md"
+            class="px-4 py-2 rounded-lg
+                   bg-slate-700/60 text-slate-200
+                   font-semibold
+                   hover:bg-slate-600/70 hover:text-white
+                   transition-all duration-200">
+            Driver Sales
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Right / User -->
+      <div class="relative flex items-center gap-3 text-right" #userMenu>
+
+        <button class="flex items-center gap-3 focus:outline-none">
+          <img
+            src="https://i.pravatar.cc/40"
+            alt="User Avatar"
+            class="w-10 h-10 rounded-full border-2 border-slate-300"
+          />
+          <div class="leading-tight">
+            <p class="text-xs text-slate-400">Logged in as</p>
+            <p class="text-sm font-semibold text-white">
+              Taylor Swift
+            </p>
+          </div>
+        </button>
+
+        <!-- Dropdown -->
+        <div
+          *ngIf="isUserDropdownOpen"
+          class="absolute right-0 top-14 w-48 bg-white rounded-lg shadow-xl ring-1 ring-black/5 z-50"
+        >
+          <ul class="py-2">
+            <li>
+              <a class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                Profile
+              </a>
+            </li>
+            <li>
+              <a class="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-100">
+                Settings
+              </a>
+            </li>
+            <li>
+              <hr class="my-1 border-slate-200" />
+            </li>
+            <li>
+              <a class="block px-4 py-2 text-sm text-red-600 hover:bg-red-50">
+                Logout
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Report Content -->
+  <div class="mt-6">
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

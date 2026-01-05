@@ -1,0 +1,89 @@
+<div class="bg-white rounded-lg p-6 shadow-sm">
+
+  <!-- HEADER -->
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold">
+      Monthly Branch Comparison — {{ monthNames[currentMonth] }}
+    </h2>
+
+    <div class="flex gap-2 items-center">
+      <button (click)="prevYear()" class="px-2 py-1 bg-slate-100 rounded">« Year</button>
+      <button (click)="prevMonth()" class="px-2 py-1 bg-slate-100 rounded">‹ Month</button>
+
+      <span class="px-3 py-1 border rounded">
+        {{ monthNames[currentMonth] }} {{ currentYear }}
+      </span>
+
+      <button (click)="nextMonth()" class="px-2 py-1 bg-slate-100 rounded">Month ›</button>
+      <button (click)="nextYear()" class="px-2 py-1 bg-slate-100 rounded">Year »</button>
+    </div>
+  </div>
+
+  <!-- CHARTS -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+
+    <div class="h-72 border rounded p-2">
+      <p class="text-center font-semibold mb-1">
+        {{ currentYear - 1 }}
+      </p>
+      <canvas #prevChart baseChart [type]="chartType" [data]="prevData" [options]="chartOptions"></canvas>
+    </div>
+
+    <div class="h-72 border rounded p-2">
+      <p class="text-center font-semibold mb-1">
+        {{ currentYear }}
+      </p>
+      <canvas #currentChart baseChart [type]="chartType" [data]="currentData" [options]="chartOptions"></canvas>
+    </div>
+
+    <div class="h-72 border rounded p-2">
+      <p class="text-center font-semibold mb-1">
+        {{ currentYear + 1 }}
+      </p>
+      <canvas #nextChart baseChart [type]="chartType" [data]="nextData" [options]="chartOptions"></canvas>
+    </div>
+
+  </div>
+
+  <!-- TABLE -->
+  <div class="overflow-x-auto">
+    <div class="flex justify-between mb-2">
+      <h3 class="font-semibold">Monthly Comparison Table</h3>
+
+      <div class="flex gap-2">
+        <button (click)="exportToExcel()" class="bg-green-600 text-white px-3 py-1 rounded">
+          Export
+        </button>
+        <button (click)="printTable()" class="bg-blue-600 text-white px-3 py-1 rounded">
+          Print
+        </button>
+      </div>
+    </div>
+
+    <table id="monthly-comparison-table" class="min-w-full border text-sm">
+      <thead class="bg-gray-50">
+        <tr>
+          <th class="px-3 py-2">Branch</th>
+          <th class="px-3 py-2 text-right">{{ currentYear - 1 }} Cash</th>
+          <th class="px-3 py-2 text-right">{{ currentYear - 1 }} MT</th>
+          <th class="px-3 py-2 text-right">{{ currentYear }} Cash</th>
+          <th class="px-3 py-2 text-right">{{ currentYear }} MT</th>
+          <th class="px-3 py-2 text-right">{{ currentYear + 1 }} Cash</th>
+          <th class="px-3 py-2 text-right">{{ currentYear + 1 }} MT</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let r of tableRows">
+          <td class="px-3 py-2 font-semibold">{{ r.branch }}</td>
+          <td class="px-3 py-2 text-right">{{ formatCurrency(r.prevCash) }}</td>
+          <td class="px-3 py-2 text-right">{{ formatVolume(r.prevVolume) }}</td>
+          <td class="px-3 py-2 text-right font-bold">{{ formatCurrency(r.currCash) }}</td>
+          <td class="px-3 py-2 text-right font-bold">{{ formatVolume(r.currVolume) }}</td>
+          <td class="px-3 py-2 text-right">{{ formatCurrency(r.nextCash) }}</td>
+          <td class="px-3 py-2 text-right">{{ formatVolume(r.nextVolume) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
