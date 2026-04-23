@@ -1,71 +1,25 @@
 import { Routes } from '@angular/router';
 
-import { Dashboard } from './pages/dashboard/dashboard';
-
-// Branch Sales
-import { BranchSales } from './pages/dashboard/branch-sales/branch-sales';
-import { BranchSalesMonthly } from './pages/dashboard/branch-sales/branch-sales-monthly/branch-sales-monthly';
-import { BranchSalesYearly } from './pages/dashboard/branch-sales/branch-sales-yearly/branch-sales-yearly';
-
-// Volume Sales
-import { VolumeSales } from './pages/dashboard/volume-sales/volume-sales';
-import { VolumeSalesMonthly } from './pages/dashboard/volume-sales/volume-sales-monthly/volume-sales-monthly';
-import { VolumeSalesYearly } from './pages/dashboard/volume-sales/volume-sales-yearly/volume-sales-yearly';
-
-// Driver Sales
-import { DriverSales } from './pages/dashboard/driver-sales/driver-sales';
-import { DriverSalesMonthly } from './pages/dashboard/driver-sales/driver-sales-monthly/driver-sales-monthly';
-import { DriverSalesYearly } from './pages/dashboard/driver-sales/driver-sales-yearly/driver-sales-yearly';
-import { MonthlyComparison } from './pages/dashboard/monthly-comparison/monthly-comparison';
+import { DashboardComponent } from './pages/dashboard/dashboard.component';
+import { DashboardBranchSalesPageComponent } from './pages/dashboard/reports/dashboard-branch-sales-page.component';
+import { DashboardCollectionsPageComponent } from './pages/dashboard/reports/dashboard-collections-page.component';
+import { DashboardOverviewPageComponent } from './pages/dashboard/reports/dashboard-overview-page.component';
+import { DashboardTrendPageComponent } from './pages/dashboard/reports/dashboard-trend-page.component';
+import { DashboardVariancePageComponent } from './pages/dashboard/reports/dashboard-variance-page.component';
+import { DashboardVolumeSalesPageComponent } from './pages/dashboard/reports/dashboard-volume-sales-page.component';
 
 export const routes: Routes = [
   {
     path: 'dashboard',
-    component: Dashboard,
+    component: DashboardComponent,
     children: [
-      {
-        path: '',
-        redirectTo: 'monthly-comparison',
-        pathMatch: 'full'
-      },
-          /* ================= MONTHLY COMPARISON ================= */
-      {
-        path: 'monthly-comparison',
-        component: MonthlyComparison
-      },
-
-      /* ================= BRANCH SALES ================= */
-      {
-        path: 'branch-sales',
-        component: BranchSales,
-        children: [
-          { path: 'monthly', component: BranchSalesMonthly },
-          { path: 'yearly', component: BranchSalesYearly },
-          { path: '', redirectTo: 'monthly', pathMatch: 'full' }
-        ]
-      },
-
-      /* ================= VOLUME SALES ================= */
-      {
-        path: 'volume-sales',
-        component: VolumeSales,
-        children: [
-          { path: 'monthly', component: VolumeSalesMonthly },
-          { path: 'yearly', component: VolumeSalesYearly },
-          { path: '', redirectTo: 'monthly', pathMatch: 'full' }
-        ]
-      },
-
-      /* ================= DRIVER SALES ================= */
-      {
-        path: 'driver-sales',
-        component: DriverSales,
-        children: [
-          { path: 'monthly', component: DriverSalesMonthly },
-          { path: 'yearly', component: DriverSalesYearly }, // add later
-          { path: '', redirectTo: 'monthly', pathMatch: 'full' }
-        ]
-      }
+      { path: '', redirectTo: 'overview', pathMatch: 'full' },
+      { path: 'overview', component: DashboardOverviewPageComponent },
+      { path: 'sales-trend', component: DashboardTrendPageComponent },
+      { path: 'branch-sales', component: DashboardBranchSalesPageComponent },
+      { path: 'volume-sales', component: DashboardVolumeSalesPageComponent },
+      { path: 'collections', component: DashboardCollectionsPageComponent },
+      { path: 'variance', component: DashboardVariancePageComponent }
     ]
   },
 

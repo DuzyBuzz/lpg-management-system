@@ -1,0 +1,10 @@
+window.__env = {
+  "API_BASE_URL": "https://fulltanklpgdc.appspot.com",
+  "FIREBASE_API_KEY": "AIzaSyCRaiXVN_fS0Js7SZi_bSg3Jm-gHonK7mk",
+  "FIREBASE_AUTH_DOMAIN": "lpgmanangement.firebaseapp.com",
+  "FIREBASE_PROJECT_ID": "lpgmanangement",
+  "FIREBASE_STORAGE_BUCKET": "lpgmanangement.firebasestorage.app",
+  "FIREBASE_MESSAGING_SENDER_ID": "792930191490",
+  "FIREBASE_APP_ID": "1:792930191490:web:b529e4de2379cc441c8c9b",
+  "FIREBASE_MEASUREMENT_ID": "G-BG1JFKTG7J"
+};

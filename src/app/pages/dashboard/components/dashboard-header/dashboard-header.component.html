@@ -1,0 +1,124 @@
+<header class="dashboard-header p-3 xl:p-4">
+  <div class="dashboard-header__hero">
+    <div class="dashboard-header__intro">
+      <p class="dashboard-header__eyebrow">Operations Analytics</p>
+      <h1 class="dashboard-header__title">LPG Analytics Dashboard</h1>
+      <p class="dashboard-header__subtitle">
+        Live sales, volume, collection, and variance reporting.
+      </p>
+    </div>
+
+    <div class="dashboard-header__meta-grid">
+      <div class="dashboard-header__meta-card">
+        <p class="dashboard-header__control-label">Current Scope</p>
+        <p class="dashboard-header__period-title">{{ selectedPeriodLabel() }}</p>
+        <p class="dashboard-header__meta-detail">{{ snapshotRangeLabel() }}</p>
+      </div>
+
+      <div class="dashboard-header__meta-card">
+        <p class="dashboard-header__control-label">Data Status</p>
+        <div class="dashboard-header__status-line">
+          <p-tag [severity]="sourceSeverity()" [value]="sourceLabel()"></p-tag>
+          <span class="dashboard-header__meta-chip">{{ lastUpdatedLabel() }}</span>
+        </div>
+        <p class="dashboard-header__meta-detail">{{ dataStatusDetail() }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="dashboard-header__bar">
+    <nav class="dashboard-header__nav-wrap min-w-0" aria-label="Dashboard sections">
+      <div class="dashboard-header__nav flex gap-2 overflow-x-auto">
+        @for (item of navigationItems(); track trackByRoute($index, item)) {
+          <a
+            pButton
+            [routerLink]="item.route"
+            [label]="item.label"
+            [icon]="item.icon"
+            severity="secondary"
+            routerLinkActive="dashboard-header__nav-button--active"
+            [routerLinkActiveOptions]="{ exact: true }"
+            class="dashboard-header__nav-button"
+          ></a>
+        }
+      </div>
+    </nav>
+
+    <div class="dashboard-header__controls">
+      <div class="dashboard-header__mode-panel">
+        <p class="dashboard-header__control-label">Report Mode</p>
+        <p-select
+          styleClass="dashboard-header__mode-select"
+          [options]="reportModeSelectOptions"
+          optionLabel="label"
+          optionValue="value"
+          [ngModel]="selectedReportMode()"
+          [showClear]="false"
+          ariaLabel="Report mode"
+          appendTo="body"
+          (ngModelChange)="onReportModeChange($event)"
+        ></p-select>
+      </div>
+
+      <div class="dashboard-header__period-group grid gap-2 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center">
+        <button
+          pButton
+          type="button"
+          severity="secondary"
+          [attr.title]="previousPeriodLabel()"
+          [attr.aria-label]="previousPeriodLabel()"
+          class="dashboard-header__period-button"
+          (click)="goToPreviousPeriod()"
+        >
+          <i class="pi pi-chevron-left"></i>
+          <span>{{ previousPeriodLabel() }}</span>
+        </button>
+
+        <div class="dashboard-header__period-card min-w-0">
+          <p class="dashboard-header__control-label">Selected Period</p>
+          <p class="dashboard-header__period-title">{{ selectedPeriodLabel() }}</p>
+        </div>
+
+        <button
+          pButton
+          type="button"
+          severity="secondary"
+          [attr.title]="nextPeriodLabel()"
+          [attr.aria-label]="nextPeriodLabel()"
+          class="dashboard-header__period-button"
+          (click)="goToNextPeriod()"
+        >
+          <span>{{ nextPeriodLabel() }}</span>
+          <i class="pi pi-chevron-right"></i>
+        </button>
+      </div>
+
+      <div class="dashboard-header__action-group" aria-label="Report actions">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-print"
+          label="Print"
+          severity="secondary"
+          title="Print current report"
+          aria-label="Print current report"
+          class="dashboard-header__action-button dashboard-header__action-button--quiet"
+          [disabled]="reportActionsDisabled()"
+          (click)="printCurrentReport()"
+        ></button>
+
+        <button
+          pButton
+          type="button"
+          icon="pi pi-download"
+          label="Export Excel"
+          title="Export current report to Excel"
+          aria-label="Export current report to Excel"
+          class="dashboard-header__action-button dashboard-header__action-button--accent"
+          [disabled]="reportActionsDisabled()"
+          (click)="exportCurrentReportAsExcel()"
+        ></button>
+      </div>
+    </div>
+  </div>
+</header>

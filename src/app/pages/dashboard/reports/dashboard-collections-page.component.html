@@ -1,0 +1,94 @@
+<div class="dashboard-page">
+  <div class="dashboard-page__layout">
+    <section class="dashboard-page__hero-grid">
+      <p-card styleClass="dashboard-page__card dashboard-page__chart-card border border-white/70 shadow-sm">
+        <div class="flex h-full min-h-0 flex-col gap-5">
+          <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p class="section-kicker">Collection Mix</p>
+              <h2 class="text-2xl font-bold tracking-tight text-slate-950">Collection standing by status</h2>
+            </div>
+            <p-tag severity="info" [value]="workspace.collectionRateLabel()"></p-tag>
+          </div>
+
+          @if (workspace.hasCollectionRows()) {
+            <div class="dashboard-page__chart-region">
+              <div class="chart-surface chart-surface--doughnut">
+                <p-chart type="doughnut" [data]="collectionChartData()" [options]="collectionChartOptions"></p-chart>
+              </div>
+            </div>
+          } @else {
+            <div class="empty-chart-state flex-1">
+              <p>No collection status data is available for the selected period.</p>
+            </div>
+          }
+        </div>
+      </p-card>
+    </section>
+
+    <section class="dashboard-page__kpi-grid">
+      @for (card of collectionSummaryCards(); track card.label) {
+        <app-summary-card [card]="card"></app-summary-card>
+      }
+    </section>
+
+    <p-card styleClass="dashboard-page__card dashboard-page__table-card border border-white/70 shadow-sm">
+      <div class="flex h-full min-h-0 flex-col gap-5">
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="section-kicker">Collections Table</p>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-950">Collection standing by account</h2>
+          </div>
+          <p-tag severity="info" [value]="workspace.collectionRateLabel()"></p-tag>
+        </div>
+
+        <div class="dashboard-page__table-region rounded-3xl border border-slate-200/80 bg-white">
+          <p-table
+            styleClass="report-table report-table--scroll"
+            [value]="workspace.collectionTableRows()"
+            [scrollable]="true"
+            scrollHeight="flex"
+            [paginator]="true"
+            [rows]="10"
+            [rowsPerPageOptions]="[10, 15, 20]"
+            [rowTrackBy]="trackByCollectionAccount"
+            sortField="balance"
+            [sortOrder]="-1"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="accountName">Account Name <p-sortIcon field="accountName"></p-sortIcon></th>
+                <th pSortableColumn="total">Total <p-sortIcon field="total"></p-sortIcon></th>
+                <th pSortableColumn="collected">Collected <p-sortIcon field="collected"></p-sortIcon></th>
+                <th pSortableColumn="balance">Balance <p-sortIcon field="balance"></p-sortIcon></th>
+                <th pSortableColumn="discount">Discount <p-sortIcon field="discount"></p-sortIcon></th>
+                <th>Status</th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row>
+              <tr [ngClass]="row.rowClass">
+                <td class="font-semibold text-slate-900">{{ row.accountName }}</td>
+                <td>{{ row.totalLabel }}</td>
+                <td>{{ row.collectedLabel }}</td>
+                <td>{{ row.balanceLabel }}</td>
+                <td>{{ row.discountLabel }}</td>
+                <td>
+                  <p-tag [severity]="row.statusSeverity" [value]="row.statusLabel"></p-tag>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="6" class="px-6 py-10 text-center text-sm text-slate-500">
+                  No collection rows are available for the selected period.
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

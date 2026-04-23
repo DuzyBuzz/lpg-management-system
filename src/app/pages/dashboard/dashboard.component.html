@@ -1,0 +1,87 @@
+<div class="dashboard-shell min-h-screen flex flex-col">
+  <div class="dashboard-shell__header flex-none">
+    <app-dashboard-header [navItems]="navItems"></app-dashboard-header>
+  </div>
+
+  <main class="dashboard-shell__content flex-1">
+    <div class="dashboard-shell__body flex min-h-full flex-col">
+      <div class="dashboard-shell__active-panel flex-1">
+        @if (workspace.errorMessage()) {
+          <div class="dashboard-shell__state-card dashboard-shell__state-card--error">
+            <p-tag severity="danger" value="Unavailable"></p-tag>
+            <div class="space-y-2 text-center">
+              <h2 class="text-2xl font-bold text-slate-950">The dashboard is temporarily unavailable.</h2>
+              <p class="max-w-xl text-sm leading-6 text-slate-600">{{ workspace.errorMessage() }}</p>
+            </div>
+            <button type="button" class="dashboard-shell__action-button" (click)="workspace.reload()">
+              Try again
+            </button>
+          </div>
+        } @else if (workspace.isLoading()) {
+          <div class="dashboard-shell__loading-grid">
+            <div class="dashboard-shell__loading-note">
+              <div class="dashboard-shell__loading-note-header">
+                <p-tag severity="info" value="Generating report"></p-tag>
+                <span class="dashboard-shell__loading-note-chip">{{ workspace.selectedPeriodLabel() }}</span>
+              </div>
+
+              <div class="space-y-2">
+                <h2 class="dashboard-shell__loading-note-title">Preparing the full live report for the selected range.</h2>
+                <p class="dashboard-shell__loading-note-copy">
+                  This may take a while when the requested period covers a large data set. Please wait while we load and assemble the full report for {{ workspace.reportWindow() }}.
+                </p>
+              </div>
+
+              <p-progressbar
+                mode="indeterminate"
+                [showValue]="false"
+                [style]="{ height: '0.7rem' }"
+                ariaLabel="Report generation in progress"
+              ></p-progressbar>
+            </div>
+
+            <div class="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
+              @for (cardIndex of [1, 2, 3, 4, 5]; track cardIndex) {
+                <div class="dashboard-shell__skeleton-card">
+                  <p-skeleton height="1rem" width="42%"></p-skeleton>
+                  <p-skeleton height="2rem" width="68%"></p-skeleton>
+                  <p-skeleton height="0.9rem" width="55%"></p-skeleton>
+                </div>
+              }
+            </div>
+
+            <div class="grid min-h-0 gap-5 xl:grid-cols-[1.4fr_1fr]">
+              <div class="dashboard-shell__skeleton-panel">
+                <p-skeleton height="1rem" width="35%"></p-skeleton>
+                <p-skeleton height="100%"></p-skeleton>
+              </div>
+              <div class="dashboard-shell__skeleton-panel">
+                <p-skeleton height="1rem" width="35%"></p-skeleton>
+                <p-skeleton height="100%"></p-skeleton>
+              </div>
+            </div>
+          </div>
+        } @else if (!workspace.hasData()) {
+          <div class="dashboard-shell__state-card">
+            <div class="dashboard-shell__empty-icon">
+              <i class="pi pi-inbox"></i>
+            </div>
+            <div class="space-y-2 text-center">
+              <h2 class="text-2xl font-bold text-slate-950">{{ workspace.emptyStateTitle() }}</h2>
+              <p class="max-w-xl text-sm leading-6 text-slate-600">
+                {{ workspace.emptyStateDescription() }}
+              </p>
+            </div>
+            <button type="button" class="dashboard-shell__action-button" (click)="workspace.reload()">
+              Reload
+            </button>
+          </div>
+        } @else {
+          <div class="dashboard-shell__router-host">
+            <router-outlet></router-outlet>
+          </div>
+        }
+      </div>
+    </div>
+  </main>
+</div>

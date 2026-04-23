@@ -1,5 +1,6 @@
 {
   "hosting": {
+    "site": "lpgmanangement",
     "public": "dist/gasul-management-system-sample-draft/browser",
     "ignore": [
       "firebase.json",

@@ -3,17 +3,28 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
-import { DashboardWorkspaceService } from './dashboard-workspace.service';
-import { DashboardComponent } from './dashboard.component';
+import { DashboardWorkspaceService } from '../../dashboard-workspace.service';
+import {
+  DashboardHeaderComponent,
+  DashboardHeaderNavItem
+} from './dashboard-header.component';
 
-describe('Dashboard', () => {
-  let component: DashboardComponent;
-  let fixture: ComponentFixture<DashboardComponent>;
+describe('DashboardHeaderComponent', () => {
+  let component: DashboardHeaderComponent;
+  let fixture: ComponentFixture<DashboardHeaderComponent>;
+
+  const navItems: ReadonlyArray<DashboardHeaderNavItem> = [
+    {
+      label: 'Executive Summary',
+      route: 'overview',
+      icon: 'pi pi-home'
+    }
+  ];
 
   const workspaceStub = {
     reportModeButtons: [
-      { value: 'monthly' as const, label: 'Monthly Report' },
-      { value: 'yearly' as const, label: 'Yearly Report' }
+      { value: 'monthly' as const, label: 'Monthly' },
+      { value: 'yearly' as const, label: 'Yearly' }
     ],
     reportMode: signal<'monthly' | 'yearly'>('monthly'),
     selectedPeriodLabel: signal('April 2026'),
@@ -32,20 +43,14 @@ describe('Dashboard', () => {
       highVarianceCount: 1
     }),
     lastUpdatedAt: signal(new Date('2026-04-23T10:15:00')),
-    errorMessage: signal<string | null>(null),
-    isLoading: signal(false),
-    hasData: signal(true),
-    emptyStateTitle: signal('No report data'),
-    emptyStateDescription: signal('No records were returned.'),
     setReportMode: jasmine.createSpy('setReportMode'),
     goToPreviousPeriod: jasmine.createSpy('goToPreviousPeriod'),
-    goToNextPeriod: jasmine.createSpy('goToNextPeriod'),
-    reload: jasmine.createSpy('reload')
+    goToNextPeriod: jasmine.createSpy('goToNextPeriod')
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DashboardComponent],
+      imports: [DashboardHeaderComponent],
       providers: [
         provideNoopAnimations(),
         provideRouter([]),
@@ -56,8 +61,10 @@ describe('Dashboard', () => {
       ]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(DashboardComponent);
+    fixture = TestBed.createComponent(DashboardHeaderComponent);
+    fixture.componentRef.setInput('navItems', navItems);
     component = fixture.componentInstance;
+    fixture.detectChanges();
     await fixture.whenStable();
   });
 

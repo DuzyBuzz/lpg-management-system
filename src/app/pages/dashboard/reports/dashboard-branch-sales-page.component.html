@@ -1,0 +1,154 @@
+<div class="dashboard-page">
+  <div class="dashboard-page__layout">
+    <section class="dashboard-page__hero-grid">
+      <p-card styleClass="dashboard-page__card dashboard-page__chart-card border border-white/70 shadow-sm">
+        <div class="flex h-full min-h-0 flex-col gap-5">
+          <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p class="section-kicker">Branch Performance</p>
+              <h2 class="text-2xl font-bold tracking-tight text-slate-950">Sales and collections by branch</h2>
+            </div>
+            <p-tag severity="info" [value]="workspace.branchCountLabel()"></p-tag>
+          </div>
+
+          @if (workspace.hasBranchSalesRows()) {
+            <div class="dashboard-page__chart-region">
+              <div class="chart-surface">
+                <p-chart type="bar" [data]="branchChartData()" [options]="branchChartOptions"></p-chart>
+              </div>
+            </div>
+          } @else {
+            <div class="empty-chart-state flex-1">
+              <p>No branch performance data is available for the selected period.</p>
+            </div>
+          }
+        </div>
+      </p-card>
+    </section>
+
+    <section class="dashboard-page__kpi-grid">
+      @for (card of branchSummaryCards(); track card.label) {
+        <app-summary-card [card]="card"></app-summary-card>
+      }
+    </section>
+
+    <p-card styleClass="dashboard-page__card dashboard-page__table-card border border-white/70 shadow-sm">
+      <div class="flex h-full min-h-0 flex-col gap-5">
+        <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <div>
+            <p class="section-kicker">Branch Table</p>
+            <h2 class="text-2xl font-bold tracking-tight text-slate-950">Branch performance and collection depth</h2>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            @for (item of workspace.branchDistributionPreview(); track item.label) {
+              <p-tag severity="secondary" [value]="item.label"></p-tag>
+            }
+          </div>
+        </div>
+
+        <div class="dashboard-page__table-region rounded-3xl border border-slate-200/80 bg-white">
+          <p-table
+            styleClass="report-table report-table--scroll"
+            [value]="workspace.branchSalesTableRows()"
+            dataKey="branchId"
+            [scrollable]="true"
+            scrollHeight="flex"
+            [paginator]="true"
+            [rows]="8"
+            [rowsPerPageOptions]="[8, 12, 16]"
+            [rowTrackBy]="trackByBranchId"
+            sortField="totalSales"
+            [sortOrder]="-1"
+          >
+            <ng-template pTemplate="header">
+              <tr>
+                <th pSortableColumn="branchName">Branch Name <p-sortIcon field="branchName"></p-sortIcon></th>
+                <th pSortableColumn="totalSales">Total Sales <p-sortIcon field="totalSales"></p-sortIcon></th>
+                <th pSortableColumn="collected">Collected <p-sortIcon field="collected"></p-sortIcon></th>
+                <th pSortableColumn="balance">Balance <p-sortIcon field="balance"></p-sortIcon></th>
+                <th pSortableColumn="collectionRate">Collection Rate <p-sortIcon field="collectionRate"></p-sortIcon></th>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-row let-expanded="expanded">
+              <tr>
+                <td>
+                  <div class="flex items-center gap-3">
+                    <button
+                      pButton
+                      type="button"
+                      severity="secondary"
+                      [text]="true"
+                      [rounded]="true"
+                      [plain]="true"
+                      [pRowToggler]="row"
+                      [disabled]="!row.isExpandable"
+                      [icon]="getBranchExpansionIcon(expanded)"
+                      aria-label="Toggle branch detail"
+                    ></button>
+                    <div class="flex flex-col gap-1">
+                      <span class="font-semibold text-slate-900">{{ row.branchName }}</span>
+                      <span class="text-sm text-slate-500">{{ row.detailCountLabel }}</span>
+                    </div>
+                  </div>
+                </td>
+                <td>{{ row.totalSalesLabel }}</td>
+                <td>{{ row.collectedLabel }}</td>
+                <td>{{ row.balanceLabel }}</td>
+                <td>
+                  <p-tag [severity]="row.collectionRateSeverity" [value]="row.collectionRateLabel"></p-tag>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="rowexpansion" let-row>
+              <tr>
+                <td colspan="5" class="branch-expansion-cell">
+                  <div class="branch-detail-shell space-y-4 rounded-2xl p-4">
+                    <div>
+                      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">Nested Sales Rows</p>
+                      <h3 class="mt-1 text-lg font-semibold text-slate-900">{{ row.branchName }}</h3>
+                    </div>
+
+                    <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white">
+                      <p-table styleClass="branch-detail-table" [value]="row.details">
+                        <ng-template pTemplate="header">
+                          <tr>
+                            <th>Account Name</th>
+                            <th>Total</th>
+                            <th>Collected</th>
+                            <th>Balance</th>
+                            <th>Discount</th>
+                          </tr>
+                        </ng-template>
+
+                        <ng-template pTemplate="body" let-detail>
+                          <tr>
+                            <td class="font-medium text-slate-900">{{ detail.accountName }}</td>
+                            <td>{{ detail.totalLabel }}</td>
+                            <td>{{ detail.collectedLabel }}</td>
+                            <td>{{ detail.balanceLabel }}</td>
+                            <td>{{ detail.discountLabel }}</td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="5" class="px-6 py-10 text-center text-sm text-slate-500">
+                  No branch sales rows are available for the selected period.
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </p-card>
+  </div>
+</div>

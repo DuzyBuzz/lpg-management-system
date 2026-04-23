@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "gasul-draft"
-  }
+    "default": "lpgmanangement",
+    "prod": "lpgmanangement"
+  },
+  "targets": {},
+  "etags": {}
 }
