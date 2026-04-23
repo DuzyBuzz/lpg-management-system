@@ -21,7 +21,7 @@
           <p-tag [severity]="sourceSeverity()" [value]="sourceLabel()"></p-tag>
           <span class="dashboard-header__meta-chip">{{ lastUpdatedLabel() }}</span>
         </div>
-        <p class="dashboard-header__meta-detail">{{ dataStatusDetail() }}</p>
+        <!-- <p class="dashboard-header__meta-detail">{{ dataStatusDetail() }}</p> -->
       </div>
     </div>
   </div>
@@ -45,8 +45,6 @@
     </nav>
 
     <div class="dashboard-header__controls">
-      <div class="dashboard-header__mode-panel">
-        <p class="dashboard-header__control-label">Report Mode</p>
         <p-select
           styleClass="dashboard-header__mode-select"
           [options]="reportModeSelectOptions"
@@ -58,7 +56,6 @@
           appendTo="body"
           (ngModelChange)="onReportModeChange($event)"
         ></p-select>
-      </div>
 
       <div class="dashboard-header__period-group grid gap-2 sm:grid-cols-[auto_minmax(0,1fr)_auto] sm:items-center">
         <button
@@ -75,7 +72,6 @@
         </button>
 
         <div class="dashboard-header__period-card min-w-0">
-          <p class="dashboard-header__control-label">Selected Period</p>
           <p class="dashboard-header__period-title">{{ selectedPeriodLabel() }}</p>
         </div>
 

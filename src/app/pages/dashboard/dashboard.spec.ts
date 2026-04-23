@@ -2,6 +2,7 @@ import { signal } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 import { DashboardWorkspaceService } from './dashboard-workspace.service';
 import { DashboardComponent } from './dashboard.component';
@@ -20,6 +21,8 @@ describe('Dashboard', () => {
     reportWindow: signal('Apr 01, 2026 - Apr 30, 2026'),
     previousPeriodLabel: signal('Prev Month'),
     nextPeriodLabel: signal('Next Month'),
+    overview: signal({ sourceLabel: 'Live Data', sourceSeverity: 'success' as const }),
+    notice: signal(null),
     totals: signal({
       grossSales: 100000,
       collected: 90000,
@@ -35,6 +38,15 @@ describe('Dashboard', () => {
     errorMessage: signal<string | null>(null),
     isLoading: signal(false),
     hasData: signal(true),
+    hasDeterminateLoadProgress: signal(false),
+    isActionInProgress: signal(false),
+    actionProgressLabel: signal('Export in progress'),
+    actionProgressTitle: signal('Preparing the Excel export.'),
+    actionProgressDescription: signal('We are preparing the full report action.'),
+    loadProgressLabel: signal('Loading live data'),
+    loadProgressValue: signal(0),
+    loadingStateTitle: signal('Generating the report.'),
+    loadingStateDescription: signal('Requesting the live report for the selected period.'),
     emptyStateTitle: signal('No report data'),
     emptyStateDescription: signal('No records were returned.'),
     setReportMode: jasmine.createSpy('setReportMode'),
@@ -49,6 +61,7 @@ describe('Dashboard', () => {
       providers: [
         provideNoopAnimations(),
         provideRouter([]),
+        MessageService,
         {
           provide: DashboardWorkspaceService,
           useValue: workspaceStub

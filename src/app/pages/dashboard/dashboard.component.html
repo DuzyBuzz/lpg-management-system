@@ -6,7 +6,7 @@
   <main class="dashboard-shell__content flex-1">
     <div class="dashboard-shell__body flex min-h-full flex-col">
       <div class="dashboard-shell__active-panel flex-1">
-        @if (workspace.errorMessage()) {
+        @if (workspace.errorMessage() && !workspace.hasData()) {
           <div class="dashboard-shell__state-card dashboard-shell__state-card--error">
             <p-tag severity="danger" value="Unavailable"></p-tag>
             <div class="space-y-2 text-center">
@@ -17,24 +17,28 @@
               Try again
             </button>
           </div>
-        } @else if (workspace.isLoading()) {
+        } @else if (workspace.isLoading() && !workspace.hasData()) {
           <div class="dashboard-shell__loading-grid">
             <div class="dashboard-shell__loading-note">
               <div class="dashboard-shell__loading-note-header">
                 <p-tag severity="info" value="Generating report"></p-tag>
                 <span class="dashboard-shell__loading-note-chip">{{ workspace.selectedPeriodLabel() }}</span>
+                @if (workspace.hasDeterminateLoadProgress()) {
+                  <span class="dashboard-shell__loading-note-chip">{{ workspace.loadProgressLabel() }}</span>
+                }
               </div>
 
               <div class="space-y-2">
-                <h2 class="dashboard-shell__loading-note-title">Preparing the full live report for the selected range.</h2>
+                <h2 class="dashboard-shell__loading-note-title">{{ workspace.loadingStateTitle() }}</h2>
                 <p class="dashboard-shell__loading-note-copy">
-                  This may take a while when the requested period covers a large data set. Please wait while we load and assemble the full report for {{ workspace.reportWindow() }}.
+                  {{ workspace.loadingStateDescription() }}
                 </p>
               </div>
 
               <p-progressbar
-                mode="indeterminate"
-                [showValue]="false"
+                [mode]="workspace.hasDeterminateLoadProgress() ? 'determinate' : 'indeterminate'"
+                [value]="workspace.loadProgressValue()"
+                [showValue]="workspace.hasDeterminateLoadProgress()"
                 [style]="{ height: '0.7rem' }"
                 ariaLabel="Report generation in progress"
               ></p-progressbar>
@@ -78,6 +82,56 @@
           </div>
         } @else {
           <div class="dashboard-shell__router-host">
+            @if (workspace.isLoading()) {
+              <div class="dashboard-shell__loading-note mb-5">
+                <div class="dashboard-shell__loading-note-header">
+                  <p-tag severity="info" value="Refreshing report"></p-tag>
+                  <span class="dashboard-shell__loading-note-chip">{{ workspace.selectedPeriodLabel() }}</span>
+                  @if (workspace.hasDeterminateLoadProgress()) {
+                    <span class="dashboard-shell__loading-note-chip">{{ workspace.loadProgressLabel() }}</span>
+                  }
+                </div>
+
+                <div class="space-y-2">
+                  <h2 class="dashboard-shell__loading-note-title">{{ workspace.loadingStateTitle() }}</h2>
+                  <p class="dashboard-shell__loading-note-copy">
+                    {{ workspace.loadingStateDescription() }}
+                  </p>
+                </div>
+
+                <p-progressbar
+                  [mode]="workspace.hasDeterminateLoadProgress() ? 'determinate' : 'indeterminate'"
+                  [value]="workspace.loadProgressValue()"
+                  [showValue]="workspace.hasDeterminateLoadProgress()"
+                  [style]="{ height: '0.7rem' }"
+                  ariaLabel="Report generation in progress"
+                ></p-progressbar>
+              </div>
+            }
+
+            @if (workspace.isActionInProgress()) {
+              <div class="dashboard-shell__loading-note mb-5">
+                <div class="dashboard-shell__loading-note-header">
+                  <p-tag severity="warn" [value]="workspace.actionProgressLabel()"></p-tag>
+                  <span class="dashboard-shell__loading-note-chip">{{ workspace.selectedPeriodLabel() }}</span>
+                </div>
+
+                <div class="space-y-2">
+                  <h2 class="dashboard-shell__loading-note-title">{{ workspace.actionProgressTitle() }}</h2>
+                  <p class="dashboard-shell__loading-note-copy">
+                    {{ workspace.actionProgressDescription() }}
+                  </p>
+                </div>
+
+                <p-progressbar
+                  mode="indeterminate"
+                  [showValue]="false"
+                  [style]="{ height: '0.7rem' }"
+                  ariaLabel="Report action in progress"
+                ></p-progressbar>
+              </div>
+            }
+
             <router-outlet></router-outlet>
           </div>
         }

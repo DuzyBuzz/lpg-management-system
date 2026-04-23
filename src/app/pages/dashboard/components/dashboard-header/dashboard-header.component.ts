@@ -51,6 +51,7 @@ export class DashboardHeaderComponent {
     this.workspace.reportModeButtons;
   readonly reportModeSelectOptions = [...this.reportModeOptions];
   readonly navigationItems = computed(() => [...this.navItems()]);
+  readonly isActionInProgress = computed(() => this.workspace.isActionInProgress());
   readonly selectedReportMode = computed(() => this.workspace.reportMode());
   readonly selectedPeriodLabel = computed(() => this.workspace.selectedPeriodLabel());
   readonly previousPeriodLabel = computed(() => this.workspace.previousPeriodLabel());
@@ -58,21 +59,33 @@ export class DashboardHeaderComponent {
   readonly snapshotRangeLabel = computed(() => this.workspace.reportWindow());
   readonly dataStatusDetail = computed(() => {
     if (this.workspace.isLoading()) {
-      return 'Generating report. Large date ranges can take longer while live data is prepared.';
+      return this.workspace.loadingStateDescription();
+    }
+
+    if (this.workspace.isActionInProgress()) {
+      return this.workspace.actionProgressDescription();
     }
 
     return this.workspace.notice()?.detail ?? this.navigationSummary();
   });
   readonly reportActionsDisabled = computed(
-    () => this.workspace.isLoading() || Boolean(this.workspace.errorMessage()) || !this.workspace.hasData()
+    () =>
+      this.workspace.isLoading() ||
+      this.workspace.isActionInProgress() ||
+      Boolean(this.workspace.errorMessage()) ||
+      !this.workspace.hasData()
   );
   readonly sourceLabel = computed(() => {
     if (this.workspace.errorMessage()) {
       return 'Unavailable';
     }
 
+    if (this.workspace.isActionInProgress()) {
+      return this.workspace.actionProgressLabel();
+    }
+
     if (this.workspace.isLoading()) {
-      return 'Loading';
+      return this.workspace.hasDeterminateLoadProgress() ? 'Generating Report' : 'Loading';
     }
 
     return this.workspace.overview()?.sourceLabel ?? 'No response';
@@ -82,13 +95,25 @@ export class DashboardHeaderComponent {
       return 'danger';
     }
 
+    if (this.workspace.isActionInProgress()) {
+      return 'warn';
+    }
+
     if (this.workspace.isLoading()) {
-      return 'secondary';
+      return this.workspace.hasDeterminateLoadProgress() ? 'info' : 'secondary';
     }
 
     return this.workspace.overview()?.sourceSeverity ?? 'warn';
   });
   readonly lastUpdatedLabel = computed(() => {
+    if (this.workspace.isActionInProgress()) {
+      return this.workspace.actionProgressTitle();
+    }
+
+    if (this.workspace.isLoading()) {
+      return this.workspace.loadProgressLabel();
+    }
+
     const lastUpdatedAt = this.workspace.lastUpdatedAt();
 
     return lastUpdatedAt
@@ -118,12 +143,12 @@ export class DashboardHeaderComponent {
     this.workspace.goToNextPeriod();
   }
 
-  printCurrentReport(): void {
+  async printCurrentReport(): Promise<void> {
     if (this.reportActionsDisabled()) {
       return;
     }
 
-    this.reportExportService.printCurrentReport();
+    await this.reportExportService.printCurrentReport();
   }
 
   async exportCurrentReportAsExcel(): Promise<void> {

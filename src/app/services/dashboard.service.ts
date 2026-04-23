@@ -1,6 +1,19 @@
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { catchError, forkJoin, map, Observable, of } from 'rxjs';
+import {
+  catchError,
+  finalize,
+  forkJoin,
+  from,
+  map,
+  mergeMap,
+  Observable,
+  of,
+  scan,
+  shareReplay,
+  startWith,
+  tap
+} from 'rxjs';
 
 import { environment } from '../../environments/environment';
 import {
@@ -29,6 +42,7 @@ export type DashboardViewMode = 'monthly' | 'yearly';
 const HIGH_VARIANCE_THRESHOLD = 500;
 const MEDIUM_VARIANCE_THRESHOLD = 200;
 const TOP_QUANTITY_ACCOUNT_LIMIT = 10;
+const MAX_YEARLY_REQUEST_CONCURRENCY = 12;
 
 const toIsoDate = (value: Date) => {
   const year = value.getFullYear();
@@ -82,9 +96,34 @@ type DashboardResponseLoadResult = {
   failedRanges: ReadonlyArray<DashboardDateRange>;
 };
 
+type DashboardYearlyLoadAccumulator = {
+  response: DashboardApiResponse;
+  completedChunks: number;
+  totalChunks: number;
+  failedRanges: ReadonlyArray<DashboardDateRange>;
+  failedChunks: number;
+  successfulChunks: number;
+  firstError: HttpErrorResponse | null;
+};
+
+export type DashboardLoadProgress = {
+  completedChunks: number;
+  totalChunks: number;
+  failedChunks: number;
+  percent: number;
+};
+
+export type DashboardOverviewLoadState = {
+  overview: DashboardOverview | null;
+  progress: DashboardLoadProgress;
+  isComplete: boolean;
+};
+
 @Injectable({ providedIn: 'root' })
 export class DashboardService {
   private readonly http = inject(HttpClient);
+  private readonly dashboardChunkCache = new Map<string, DashboardApiResponse>();
+  private readonly inFlightChunkRequests = new Map<string, Observable<DashboardApiResponse>>();
 
   private readonly compactNumberFormatter = new Intl.NumberFormat('en-PH', {
     maximumFractionDigits: 0
@@ -177,16 +216,239 @@ export class DashboardService {
     );
   }
 
+  getDashboardOverviewStream(range: DashboardDateRange): Observable<DashboardOverviewLoadState> {
+    const viewMode = this.resolveViewMode(range);
+
+    if (!environment.apiBaseUrl) {
+      return of({
+        overview: this.createEmptyOverview(
+          range,
+          this.createNotice(
+            'Data source unavailable',
+            'Live report data is not configured for this environment.',
+            'warn'
+          ),
+          'Unavailable',
+          'warn'
+        ),
+        progress: this.buildLoadProgress(1, 1, 1),
+        isComplete: true
+      });
+    }
+
+    if (viewMode !== 'yearly') {
+      return this.requestDashboardChunk(range).pipe(
+        map((chunkResult) => {
+          const progress = this.buildLoadProgress(1, 1, chunkResult.error ? 1 : 0);
+
+          if (!chunkResult.response) {
+            return this.createFailureLoadState(range, chunkResult.error, progress);
+          }
+
+          return this.createMappedLoadState(chunkResult.response, [], viewMode, progress, true);
+        }),
+        startWith({
+          overview: null,
+          progress: this.buildLoadProgress(0, 1, 0),
+          isComplete: false
+        }),
+        catchError((error: HttpErrorResponse) =>
+          of(this.createFailureLoadState(range, error, this.buildLoadProgress(1, 1, 1)))
+        )
+      );
+    }
+
+    const monthlyRanges = this.buildMonthlyRanges(range);
+    const totalChunks = monthlyRanges.length;
+
+    return from(monthlyRanges).pipe(
+      mergeMap(
+        (monthlyRange) => this.requestDashboardChunk(monthlyRange),
+        Math.min(totalChunks, MAX_YEARLY_REQUEST_CONCURRENCY)
+      ),
+      scan(
+        (state, chunkResult) => this.accumulateYearlyChunk(state, chunkResult),
+        this.createInitialYearlyAccumulator(range, totalChunks)
+      ),
+      map((state) => this.mapYearlyAccumulatorToLoadState(range, viewMode, state)),
+      startWith({
+        overview: null,
+        progress: this.buildLoadProgress(0, totalChunks, 0),
+        isComplete: false
+      }),
+      catchError((error: HttpErrorResponse) =>
+        of(this.createFailureLoadState(range, error, this.buildLoadProgress(totalChunks, totalChunks, totalChunks)))
+      )
+    );
+  }
+
+  private createInitialYearlyAccumulator(
+    range: DashboardDateRange,
+    totalChunks: number
+  ): DashboardYearlyLoadAccumulator {
+    return {
+      response: this.createAggregateResponse(range),
+      completedChunks: 0,
+      totalChunks,
+      failedRanges: [],
+      failedChunks: 0,
+      successfulChunks: 0,
+      firstError: null
+    };
+  }
+
+  private accumulateYearlyChunk(
+    state: DashboardYearlyLoadAccumulator,
+    chunkResult: DashboardChunkLoadResult
+  ): DashboardYearlyLoadAccumulator {
+    const nextCompletedChunks = state.completedChunks + 1;
+
+    if (chunkResult.response) {
+      return {
+        ...state,
+        response: this.mergeDashboardResponses(state.response, chunkResult.response),
+        completedChunks: nextCompletedChunks,
+        successfulChunks: state.successfulChunks + 1
+      };
+    }
+
+    return {
+      ...state,
+      completedChunks: nextCompletedChunks,
+      failedRanges: [...state.failedRanges, chunkResult.range],
+      failedChunks: state.failedChunks + 1,
+      firstError: state.firstError ?? chunkResult.error
+    };
+  }
+
+  private mapYearlyAccumulatorToLoadState(
+    range: DashboardDateRange,
+    viewMode: DashboardViewMode,
+    state: DashboardYearlyLoadAccumulator
+  ): DashboardOverviewLoadState {
+    const progress = this.buildLoadProgress(
+      state.completedChunks,
+      state.totalChunks,
+      state.failedChunks
+    );
+    const isComplete = state.completedChunks === state.totalChunks;
+
+    if (state.successfulChunks === 0) {
+      if (!isComplete) {
+        return {
+          overview: null,
+          progress,
+          isComplete: false
+        };
+      }
+
+      return this.createFailureLoadState(range, state.firstError, progress);
+    }
+
+    return this.createMappedLoadState(
+      state.response,
+      state.failedRanges,
+      viewMode,
+      progress,
+      isComplete
+    );
+  }
+
+  private createMappedLoadState(
+    response: DashboardApiResponse,
+    failedRanges: ReadonlyArray<DashboardDateRange>,
+    viewMode: DashboardViewMode,
+    progress: DashboardLoadProgress,
+    isComplete: boolean
+  ): DashboardOverviewLoadState {
+    const hasRecords =
+      response.metered.length > 0 ||
+      response.sales.length > 0 ||
+      response.salesGroups.length > 0;
+    const hasPartialFailures = failedRanges.length > 0;
+    const notice = isComplete
+      ? this.resolveOverviewNotice(hasRecords, failedRanges)
+      : this.createInProgressNotice(progress, hasRecords, hasPartialFailures);
+
+    return {
+      overview: this.mapResponseToOverview(
+        response,
+        notice,
+        isComplete ? (hasPartialFailures ? 'Partial Live Data' : 'Live Data') : 'Generating Report',
+        isComplete ? (hasPartialFailures ? 'warn' : hasRecords ? 'success' : 'warn') : hasPartialFailures ? 'warn' : 'info',
+        viewMode
+      ),
+      progress,
+      isComplete
+    };
+  }
+
+  private createFailureLoadState(
+    range: DashboardDateRange,
+    error: HttpErrorResponse | null,
+    progress: DashboardLoadProgress
+  ): DashboardOverviewLoadState {
+    return {
+      overview: this.createEmptyOverview(
+        range,
+        this.createNotice(
+          'Data source unavailable',
+          this.describeHttpError(error ?? new HttpErrorResponse({ status: 0, statusText: 'No response' })),
+          'warn'
+        )
+      ),
+      progress,
+      isComplete: true
+    };
+  }
+
+  private buildLoadProgress(
+    completedChunks: number,
+    totalChunks: number,
+    failedChunks: number
+  ): DashboardLoadProgress {
+    const normalizedTotalChunks = Math.max(totalChunks, 1);
+
+    return {
+      completedChunks,
+      totalChunks: normalizedTotalChunks,
+      failedChunks,
+      percent: Math.round((completedChunks / normalizedTotalChunks) * 100)
+    };
+  }
+
+  private createInProgressNotice(
+    progress: DashboardLoadProgress,
+    hasRecords: boolean,
+    hasPartialFailures: boolean
+  ): DashboardNotice {
+    const monthlyChunkLabel = `${progress.completedChunks} of ${progress.totalChunks} monthly chunks loaded.`;
+
+    return this.createNotice(
+      'Generating yearly report',
+      hasRecords
+        ? `${monthlyChunkLabel} Showing the live data assembled so far while the remaining requests finish.`
+        : `${monthlyChunkLabel} Waiting for the first live rows to finish loading.`,
+      hasPartialFailures ? 'warn' : 'info'
+    );
+  }
+
   private requestDashboardResponse(
     range: DashboardDateRange,
     viewMode: DashboardViewMode
   ): Observable<DashboardResponseLoadResult> {
     if (viewMode !== 'yearly') {
-      return this.http.get<DashboardApiResponse>(this.buildEndpoint(range)).pipe(
-        map((response) => ({
-          response,
-          failedRanges: []
-        }))
+      return this.requestDashboardChunk(range).pipe(
+        map((chunkResult) => {
+          if (!chunkResult.response) {
+            throw chunkResult.error ?? new HttpErrorResponse({ status: 0, statusText: 'No response' });
+          }
+
+          return {
+            response: chunkResult.response,
+            failedRanges: []
+          };
+        })
       );
     }
 
@@ -219,7 +481,31 @@ export class DashboardService {
   }
 
   private requestDashboardChunk(range: DashboardDateRange): Observable<DashboardChunkLoadResult> {
-    return this.http.get<DashboardApiResponse>(this.buildEndpoint(range)).pipe(
+    const cacheKey = this.buildRangeCacheKey(range);
+    const cachedResponse = this.dashboardChunkCache.get(cacheKey);
+
+    if (cachedResponse) {
+      return of({
+        range,
+        response: cachedResponse,
+        error: null
+      });
+    }
+
+    const existingRequest = this.inFlightChunkRequests.get(cacheKey);
+    const request$ =
+      existingRequest ??
+      this.http.get<DashboardApiResponse>(this.buildEndpoint(range)).pipe(
+        tap((response) => this.dashboardChunkCache.set(cacheKey, response)),
+        shareReplay({ bufferSize: 1, refCount: false }),
+        finalize(() => this.inFlightChunkRequests.delete(cacheKey))
+      );
+
+    if (!existingRequest) {
+      this.inFlightChunkRequests.set(cacheKey, request$);
+    }
+
+    return request$.pipe(
       map((response) => ({
         range,
         response,
@@ -233,6 +519,10 @@ export class DashboardService {
         })
       )
     );
+  }
+
+  private buildRangeCacheKey(range: DashboardDateRange): string {
+    return `${range.start}:${range.end}`;
   }
 
   private buildEndpoint(range: DashboardDateRange): string {

@@ -1,5 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 
 import {
   DashboardBranchSalesRowView,
@@ -74,6 +75,7 @@ const ZERO_TOTALS: DashboardTotals = {
 export class DashboardReportExportService {
   private readonly workspace = inject(DashboardWorkspaceService);
   private readonly router = inject(Router);
+  private readonly messageService = inject(MessageService);
   private readonly exportedAtFormatter = new Intl.DateTimeFormat('en-PH', {
     month: 'short',
     day: '2-digit',
@@ -86,43 +88,88 @@ export class DashboardReportExportService {
     const report = this.buildCurrentReportExport();
 
     if (!report) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Export unavailable',
+        detail: 'Load a report first so the full Excel export can be prepared.',
+        life: 4000
+      });
       return;
     }
 
-    const xlsx = await import('xlsx');
-    const workbook = xlsx.utils.book_new();
-    workbook.Props = {
-      Title: report.title,
-      Subject: report.subtitle,
-      Author: 'LPG Analytics Dashboard',
-      Company: 'LPG Analytics Dashboard',
-      CreatedDate: new Date(),
-      Keywords: 'lpg analytics dashboard export excel'
-    };
+    this.workspace.beginAction('export');
 
-    const summarySheet = this.createSummarySheet(xlsx, report);
-    const tableSheet = this.createTableSheet(xlsx, report);
+    try {
+      await this.waitForUiPaint();
 
-    xlsx.utils.book_append_sheet(workbook, summarySheet, 'Summary');
-    xlsx.utils.book_append_sheet(workbook, tableSheet, this.toWorksheetName(report.tableTitle));
-    xlsx.writeFile(workbook, report.fileName);
+      const xlsx = await import('xlsx');
+      const workbook = xlsx.utils.book_new();
+      workbook.Props = {
+        Title: report.title,
+        Subject: report.subtitle,
+        Author: 'LPG Analytics Dashboard',
+        Company: 'LPG Analytics Dashboard',
+        CreatedDate: new Date(),
+        Keywords: 'lpg analytics dashboard export excel'
+      };
+
+      const summarySheet = this.createSummarySheet(xlsx, report);
+      const tableSheet = this.createTableSheet(xlsx, report);
+
+      xlsx.utils.book_append_sheet(workbook, summarySheet, 'Summary');
+      xlsx.utils.book_append_sheet(workbook, tableSheet, this.toWorksheetName(report.tableTitle));
+      xlsx.writeFile(workbook, report.fileName);
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Excel export ready',
+        detail: `${report.title} for ${report.selectedPeriod} was exported successfully.`,
+        life: 5000
+      });
+    } catch {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Excel export failed',
+        detail: 'The current report could not be exported to Excel. Please try again.',
+        life: 5000
+      });
+    } finally {
+      this.workspace.endAction();
+    }
   }
 
-  printCurrentReport(): void {
+  async printCurrentReport(): Promise<void> {
     const report = this.buildCurrentReportExport();
 
     if (!report) {
+      this.messageService.add({
+        severity: 'info',
+        summary: 'Print unavailable',
+        detail: 'Load a report first so the full print preview can be prepared.',
+        life: 4000
+      });
       return;
     }
 
-    const printWindow = window.open('', '_blank', 'width=1280,height=900');
+    this.workspace.beginAction('print');
 
-    if (!printWindow) {
-      return;
-    }
+    try {
+      await this.waitForUiPaint();
 
-    const rowCountLabel = this.formatCount(report.rowCount);
-    const summaryMarkup = report.summaryCards
+      const printWindow = window.open('', '_blank', 'width=1280,height=900');
+
+      if (!printWindow) {
+        this.messageService.add({
+          severity: 'warn',
+          summary: 'Print blocked',
+          detail: 'Allow pop-ups in the browser so the print preview can open.',
+          life: 5000
+        });
+        return;
+      }
+
+      const rowCountLabel = this.formatCount(report.rowCount);
+      const summaryMarkup = report.summaryCards
       .map(
         (card) => `
           <section class="summary-card">
@@ -132,13 +179,13 @@ export class DashboardReportExportService {
           </section>`
       )
       .join('');
-    const tableHeadMarkup = report.tableColumns
+      const tableHeadMarkup = report.tableColumns
       .map(
         (column) =>
           `<th class="table-head table-head--${column.align ?? 'left'}">${this.escapeHtml(column.header)}</th>`
       )
       .join('');
-    const tableBodyMarkup =
+      const tableBodyMarkup =
       report.tableRows.length > 0
         ? report.tableRows
             .map(
@@ -158,11 +205,11 @@ export class DashboardReportExportService {
             )
             .join('')
         : `<tr><td colspan="${report.tableColumns.length}" class="table-empty">No rows are available for ${this.escapeHtml(report.selectedPeriod)}.</td></tr>`;
-    const noticeMarkup = report.noticeDetail
+      const noticeMarkup = report.noticeDetail
       ? `<aside class="report-note"><strong>Report note:</strong> ${this.escapeHtml(report.noticeDetail)}</aside>`
       : '';
 
-    printWindow.document.write(`
+      printWindow.document.write(`
       <html>
         <head>
           <title>${this.escapeHtml(report.title)} - ${this.escapeHtml(report.selectedPeriod)}</title>
@@ -524,7 +571,35 @@ export class DashboardReportExportService {
       </html>
     `);
 
-    printWindow.document.close();
+      printWindow.document.close();
+
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Print preview ready',
+        detail: `${report.title} for ${report.selectedPeriod} was sent to the print dialog.`,
+        life: 5000
+      });
+    } catch {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Print failed',
+        detail: 'The current report could not be prepared for printing. Please try again.',
+        life: 5000
+      });
+    } finally {
+      this.workspace.endAction();
+    }
+  }
+
+  private waitForUiPaint(): Promise<void> {
+    return new Promise((resolve) => {
+      if (typeof requestAnimationFrame === 'function') {
+        requestAnimationFrame(() => resolve());
+        return;
+      }
+
+      resolve();
+    });
   }
 
   private buildCurrentReportExport(): DashboardReportExportPayload | null {
