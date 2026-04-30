@@ -5,13 +5,13 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
-import { DashboardCollectionRowView, DashboardSummaryCardView } from '../../../models/dashboard.model';
+import { DashboardCollectionRowView, DashboardSummaryCardView } from '../../../../models/dashboard.model';
 import {
   collectionStatusChartOptions,
   createCollectionStatusChartData
-} from '../dashboard-chart.config';
-import { DashboardWorkspaceService } from '../dashboard-workspace.service';
-import { SummaryCardComponent } from '../components/summary-card/summary-card.component';
+} from '../../dashboard-chart.config';
+import { DashboardWorkspaceService } from '../../../../services/dashboard-workspace.service';
+import { SummaryCardComponent } from '../../components/summary-card/summary-card.component';
 
 @Component({
   selector: 'app-dashboard-collections-page',

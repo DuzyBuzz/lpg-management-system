@@ -8,11 +8,11 @@ import { TagModule } from 'primeng/tag';
 
 import { DashboardTagSeverity } from '../../../../models/dashboard.model';
 import { DashboardViewMode } from '../../../../services/dashboard.service';
-import { DashboardReportExportService } from '../../dashboard-report-export.service';
+import { DashboardReportExportService } from '../../../../services/dashboard-report-export.service';
 import {
   DashboardReportModeOption,
   DashboardWorkspaceService
-} from '../../dashboard-workspace.service';
+} from '../../../../services/dashboard-workspace.service';
 
 export type DashboardHeaderNavItem = {
   label: string;

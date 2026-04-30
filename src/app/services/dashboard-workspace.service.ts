@@ -2,13 +2,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { EMPTY, Subject, catchError, startWith, switchMap, tap } from 'rxjs';
 
-import { DashboardOverview, DashboardDateRange } from '../../models/dashboard.model';
+import { DashboardOverview, DashboardDateRange } from '../models/dashboard.model';
 import {
   DashboardLoadProgress,
   DashboardService,
   DashboardViewMode,
   buildDashboardRange
-} from '../../services/dashboard.service';
+} from './dashboard.service';
 
 export type DashboardReportModeOption = {
   label: string;

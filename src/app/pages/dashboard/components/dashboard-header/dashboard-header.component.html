@@ -35,7 +35,7 @@
             [routerLink]="item.route"
             [label]="item.label"
             [icon]="item.icon"
-            severity="secondary"
+            severity="primary"
             routerLinkActive="dashboard-header__nav-button--active"
             [routerLinkActiveOptions]="{ exact: true }"
             class="dashboard-header__nav-button"
@@ -61,7 +61,7 @@
         <button
           pButton
           type="button"
-          severity="secondary"
+          severity="primary"
           [attr.title]="previousPeriodLabel()"
           [attr.aria-label]="previousPeriodLabel()"
           class="dashboard-header__period-button"
@@ -78,7 +78,7 @@
         <button
           pButton
           type="button"
-          severity="secondary"
+          severity="primary"
           [attr.title]="nextPeriodLabel()"
           [attr.aria-label]="nextPeriodLabel()"
           class="dashboard-header__period-button"
@@ -95,7 +95,7 @@
           type="button"
           icon="pi pi-print"
           label="Print"
-          severity="secondary"
+          severity="primary"
           title="Print current report"
           aria-label="Print current report"
           class="dashboard-header__action-button dashboard-header__action-button--quiet"

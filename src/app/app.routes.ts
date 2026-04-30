@@ -1,12 +1,12 @@
 import { Routes } from '@angular/router';
 
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { DashboardBranchSalesPageComponent } from './pages/dashboard/reports/dashboard-branch-sales-page.component';
-import { DashboardCollectionsPageComponent } from './pages/dashboard/reports/dashboard-collections-page.component';
-import { DashboardOverviewPageComponent } from './pages/dashboard/reports/dashboard-overview-page.component';
-import { DashboardTrendPageComponent } from './pages/dashboard/reports/dashboard-trend-page.component';
-import { DashboardVariancePageComponent } from './pages/dashboard/reports/dashboard-variance-page.component';
-import { DashboardVolumeSalesPageComponent } from './pages/dashboard/reports/dashboard-volume-sales-page.component';
+import { DashboardBranchSalesPageComponent } from './pages/dashboard/reports/sales/dashboard-branch-sales-page.component';
+import { DashboardCollectionsPageComponent } from './pages/dashboard/reports/collections/dashboard-collections-page.component';
+import { DashboardOverviewPageComponent } from './pages/dashboard/reports/overview/dashboard-overview-page.component';
+import { DashboardTrendPageComponent } from './pages/dashboard/reports/trend/dashboard-trend-page.component';
+import { DashboardVariancePageComponent } from './pages/dashboard/reports/variance/dashboard-variance-page.component';
+import { DashboardVolumeSalesPageComponent } from './pages/dashboard/reports/volume/dashboard-volume-sales-page.component';
 
 export const routes: Routes = [
   {

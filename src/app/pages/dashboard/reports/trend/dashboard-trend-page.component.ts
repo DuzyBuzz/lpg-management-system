@@ -6,10 +6,10 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
-import { DashboardSummaryCardView, DashboardTagSeverity, DashboardTrendPoint } from '../../../models/dashboard.model';
-import { createSalesTrendChartData, salesTrendChartOptions } from '../dashboard-chart.config';
-import { DashboardWorkspaceService } from '../dashboard-workspace.service';
-import { SummaryCardComponent } from '../components/summary-card/summary-card.component';
+import { DashboardSummaryCardView, DashboardTagSeverity, DashboardTrendPoint } from '../../../../models/dashboard.model';
+import { createSalesTrendChartData, salesTrendChartOptions } from '../../dashboard-chart.config';
+import { DashboardWorkspaceService } from '../../../../services/dashboard-workspace.service';
+import { SummaryCardComponent } from '../../components/summary-card/summary-card.component';
 
 type TrendTableRowView = {
   label: string;

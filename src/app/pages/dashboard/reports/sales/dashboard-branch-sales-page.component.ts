@@ -8,13 +8,13 @@ import { TagModule } from 'primeng/tag';
 
 import { computed } from '@angular/core';
 
-import { DashboardBranchSalesRowView, DashboardSummaryCardView } from '../../../models/dashboard.model';
+import { DashboardBranchSalesRowView, DashboardSummaryCardView } from '../../../../models/dashboard.model';
 import {
   branchPerformanceChartOptions,
   createBranchPerformanceChartData
-} from '../dashboard-chart.config';
-import { DashboardWorkspaceService } from '../dashboard-workspace.service';
-import { SummaryCardComponent } from '../components/summary-card/summary-card.component';
+} from '../../dashboard-chart.config';
+import { DashboardWorkspaceService } from '../../../../services/dashboard-workspace.service';
+import { SummaryCardComponent } from '../../components/summary-card/summary-card.component';
 
 @Component({
   selector: 'app-dashboard-branch-sales-page',

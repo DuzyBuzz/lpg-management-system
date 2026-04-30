@@ -1,5 +1,12 @@
 <div class="dashboard-page">
   <div class="dashboard-page__layout">
+
+
+    <section class="dashboard-page__kpi-grid">
+      @for (card of trendSummaryCards(); track card.label) {
+        <app-summary-card [card]="card"></app-summary-card>
+      }
+    </section>
     <section class="dashboard-page__hero-grid">
       <p-card styleClass="dashboard-page__card dashboard-page__chart-card border border-white/70 shadow-sm">
         <div class="flex h-full min-h-0 flex-col gap-5">
@@ -25,13 +32,6 @@
         </div>
       </p-card>
     </section>
-
-    <section class="dashboard-page__kpi-grid">
-      @for (card of trendSummaryCards(); track card.label) {
-        <app-summary-card [card]="card"></app-summary-card>
-      }
-    </section>
-
     <p-card styleClass="dashboard-page__card dashboard-page__table-card border border-white/70 shadow-sm">
       <div class="flex h-full min-h-0 flex-col gap-5">
         <div class="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">

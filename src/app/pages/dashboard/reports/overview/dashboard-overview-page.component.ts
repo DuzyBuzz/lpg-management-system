@@ -6,15 +6,15 @@ import { ChartModule } from 'primeng/chart';
 import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 
-import { DashboardBranchSalesRowView, DashboardDistributionPoint } from '../../../models/dashboard.model';
+import { DashboardBranchSalesRowView, DashboardDistributionPoint } from '../../../../models/dashboard.model';
 import {
   branchDistributionChartOptions,
   createBranchDistributionChartData,
   createSalesTrendChartData,
   salesTrendChartOptions
-} from '../dashboard-chart.config';
-import { DashboardWorkspaceService } from '../dashboard-workspace.service';
-import { SummaryCardComponent } from '../components/summary-card/summary-card.component';
+} from '../../dashboard-chart.config';
+import { DashboardWorkspaceService } from '../../../../services/dashboard-workspace.service';
+import { SummaryCardComponent } from '../../components/summary-card/summary-card.component';
 
 ChartJS.register(...registerables);
 

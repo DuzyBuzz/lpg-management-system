@@ -6,7 +6,7 @@ import {
   DashboardBranchSalesRowView,
   DashboardTotals,
   DashboardVarianceRowView,
-} from '../../models/dashboard.model';
+} from '../models/dashboard.model';
 import { DashboardWorkspaceService } from './dashboard-workspace.service';
 
 type DashboardReportKey =
@@ -669,7 +669,7 @@ export class DashboardReportExportService {
 
     return this.createPayload({
       key: 'sales-trend',
-      title: 'Charts / Trends',
+      title: 'Trends',
       subtitle: 'Filtered revenue and volume movement for the active reporting period.',
       tableTitle: 'Sales Trend Table',
       orientation: 'portrait',

@@ -6,7 +6,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
 import { SkeletonModule } from 'primeng/skeleton';
 import { TagModule } from 'primeng/tag';
 
-import { DashboardWorkspaceService } from './dashboard-workspace.service';
+import { DashboardWorkspaceService } from '../../services/dashboard-workspace.service';
 import {
   DashboardHeaderComponent,
   DashboardHeaderNavItem
@@ -31,7 +31,7 @@ export class DashboardComponent {
       icon: 'pi pi-home'
     },
     {
-      label: 'Charts / Trends',
+      label: 'Trends',
       route: 'sales-trend',
       icon: 'pi pi-chart-line'
     },

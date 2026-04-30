@@ -4,7 +4,7 @@ import { provideNoopAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { MessageService } from 'primeng/api';
 
-import { DashboardWorkspaceService } from './dashboard-workspace.service';
+import { DashboardWorkspaceService } from '../../services/dashboard-workspace.service';
 import { DashboardComponent } from './dashboard.component';
 
 describe('Dashboard', () => {
